@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Actes de cession</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Gelasio:wght@400;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="loginwrap" id="loginView" hidden>
+  <form class="card login" id="loginForm">
+    <h1>Actes de cession</h1>
+    <p>Commune de Tivaouane Peulh-Niaga. Connectez-vous pour continuer.</p>
+    <div class="f"><label class="l" for="email">Adresse e-mail</label><input id="email" type="email" autocomplete="username" required></div>
+    <div class="f"><label class="l" for="pwd">Mot de passe</label><input id="pwd" type="password" autocomplete="current-password" required></div>
+    <button class="btn primary" type="submit">Se connecter</button>
+    <div class="msg err" id="loginMsg" aria-live="polite"></div>
+  </form>
+</div>
+<div class="wrap" id="app" hidden>
+  <div class="top">
+    <div class="brand"><h1>Actes de cession</h1><span>Commune de Tivaouane Peulh-Niaga · Niacoulrab, Guinaw Rail</span></div>
+    <div class="prog" aria-live="polite"><div class="bar"><i id="barfill"></i></div><b id="progtxt">0 / 40 enregistrés</b></div>
+    <button class="logout" id="logout" type="button">Se déconnecter</button>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tabA" aria-selected="true" type="button">Actes</button>
+      <button class="tab" role="tab" id="tabR" aria-selected="false" type="button">Registre</button>
+    </div>
+  </div>
+  <div class="notice" id="dbnote" hidden></div>
+
+  <div id="viewA" class="layout">
+    <aside class="rail card" aria-label="Choix du lot">
+      <h2>Choisir un lot</h2>
+      <input class="search" id="search" type="search" placeholder="Numéro de lot ou nom" autocomplete="off" aria-label="Chercher un lot ou un propriétaire">
+      <div class="tiles" id="tiles"></div>
+      <div class="none" id="nores" hidden>Aucun lot ne correspond.</div>
+      <div class="legend"><span><i class="t"></i>À faire</span><span><i class="w"></i>Brouillon</span><span><i class="d"></i>Enregistré</span></div>
+    </aside>
+
+    <div class="main">
+      <section class="card lotcard" aria-live="polite">
+        <div class="lotno"><small>Lot</small><span id="lotno"></span></div>
+        <div class="owner"><div class="nm" id="ownm"></div><div class="facts" id="facts"></div></div>
+        <div id="badge"></div>
+      </section>
+      <div id="banner" hidden></div>
+
+      <div class="work">
+        <div class="col">
+          <section class="card">
+            <h2>Les parties</h2>
+            <div id="cedBox" class="party"></div>
+            <div id="acqBox" class="party"></div>
+          </section>
+          <section class="card">
+            <h2>Témoins, lieu et date</h2>
+            <div class="row">
+              <div class="f"><label class="l" for="t1n">Témoin 1, nom</label><input id="t1n" autocomplete="off"></div>
+              <div class="f"><label class="l" for="t1c">Témoin 1, CIN</label><input id="t1c" autocomplete="off" inputmode="numeric"></div>
+            </div>
+            <div class="row">
+              <div class="f"><label class="l" for="t2n">Témoin 2, nom</label><input id="t2n" autocomplete="off"></div>
+              <div class="f"><label class="l" for="t2c">Témoin 2, CIN</label><input id="t2c" autocomplete="off" inputmode="numeric"></div>
+            </div>
+            <div class="row">
+              <div class="f"><label class="l" for="faita">Fait à</label><input id="faita" autocomplete="off"></div>
+              <div class="f"><label class="l" for="faitle">Le (JJ/MM/AAAA)</label><input id="faitle" autocomplete="off" placeholder="09/11/2026"></div>
+            </div>
+            <div class="row">
+              <div class="f"><label class="l" for="sise">Parcelle sise à</label><input id="sise" autocomplete="off"></div>
+              <div class="f"><label class="l" for="sup">Superficie (m²)</label><input id="sup" autocomplete="off" inputmode="numeric"></div>
+            </div>
+            <label class="chk"><input type="checkbox" id="nicadChk">Ajouter le numéro NICAD sur l’acte</label>
+          </section>
+        </div>
+
+        <div class="col sheetcol">
+          <section class="card">
+            <div class="todo" id="todo"></div>
+            <div class="actions" id="actions"></div>
+            <div class="msg" id="msg" aria-live="polite"></div>
+          </section>
+          <div class="sheet" id="sheet" aria-label="Aperçu de l’acte"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="viewR" class="card reg" hidden>
+    <h2>Registre des actes</h2>
+    <div style="color:var(--muted);font-size:.92rem">Un lot ne peut avoir qu’un seul acte enregistré. Cliquez sur une ligne pour ouvrir le lot.</div>
+    <div class="regtools">
+      <select id="regfilter" aria-label="Filtrer par état"><option value="all">Tous les lots</option><option value="done">Enregistrés</option><option value="draft">Brouillons</option><option value="todo">À faire</option></select>
+      <button class="btn" id="csv" type="button">Exporter le registre (CSV)</button>
+      <button class="btn" id="dlRec" type="button">Actes enregistrés (Word)</button>
+      <button class="btn" id="dlAll" type="button">Les 40 modèles préremplis (Word)</button>
+    </div>
+    <div class="msg" id="regmsg" aria-live="polite"></div>
+    <div class="tw"><table><thead><tr><th>Lot</th><th>Propriétaire</th><th>Cédant</th><th>Acquéreur</th><th>Témoins</th><th>État</th></tr></thead><tbody id="regbody"></tbody></table></div>
+  </section>
+</div>
+<script src="vendor/supabase.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
