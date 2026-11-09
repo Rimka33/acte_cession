@@ -8,16 +8,6 @@
   --ui:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   --serif:'Gelasio',Georgia,'Times New Roman',serif;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0f1513; --surface:#18201d; --surface2:#1e2824; --ink:#e8eeea; --muted:#9aaba3; --line:#2f3b36;
-  --accent:#5cbf98; --accent-ink:#08140f; --accent-soft:#1f3a30;
-  --amber:#e3a652; --amber-soft:#3a2d14; --red:#ef8a7e; --red-soft:#3d1e1a;
-  --paper:#f6f6f2; --paper-ink:#141a18; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0f1513; --surface:#18201d; --surface2:#1e2824; --ink:#e8eeea; --muted:#9aaba3; --line:#2f3b36;
-  --accent:#5cbf98; --accent-ink:#08140f; --accent-soft:#1f3a30;
-  --amber:#e3a652; --amber-soft:#3a2d14; --red:#ef8a7e; --red-soft:#3d1e1a;
-  --paper:#f6f6f2; --paper-ink:#141a18; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.5;
   padding-block:0 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}

@@ -1,4 +1,6 @@
 
+// CNI sénégalaise : 1 chiffre, 3, 4, 5  ->  1 321 1975 00371
+function fmtCni(v){ const s = String(v || '').trim(), c = s.replace(/\s+/g, ''); return /^\d{13}$/.test(c) ? `${c[0]} ${c.slice(1,4)} ${c.slice(4,8)} ${c.slice(8)}` : s; }
 let DATA = [];
 const ACQ_OWNERS = ["Tamsir LO"]; // seul propriétaire qui est acquéreur ; tous les autres sont cédants
 const $ = (id) => document.getElementById(id);
@@ -200,7 +202,7 @@ function note(t){ const n = $('dbnote'); n.hidden = !t; n.textContent = t || '';
 async function loadLots(){
   const { data, error } = await sb.from('lots').select('*');
   if (error) throw error;
-  DATA = data.map(r => ({lot:r.lot, civ:r.civ, nom:r.nom, cni:r.cni, sup:r.sup, nicad:r.nicad, loc:r.loc})).sort((x,y) => Number(x.lot) - Number(y.lot));
+  DATA = data.map(r => ({lot:r.lot, civ:r.civ, nom:r.nom, cni:fmtCni(r.cni), sup:r.sup, nicad:r.nicad, loc:r.loc})).sort((x,y) => Number(x.lot) - Number(y.lot));
   byLot = Object.fromEntries(DATA.map(d => [d.lot, d]));
 }
 async function loadReg(){
